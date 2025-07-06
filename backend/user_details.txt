@@ -1,0 +1,22 @@
+[
+  {
+    "mobile_phone": "1234567890",
+    "email": "test@example.com",
+    "name": "Test User",
+    "is_active": true,
+    "id": "1751870221268716",
+    "hashed_password": "$2b$12$c6blkAVyGnGQWo4mVSsxCeAimTiZuD69XWD5p7yWdEO7C2sRBdVV.",
+    "created_at": "2025-07-06 23:37:01.268556",
+    "updated_at": null
+  },
+  {
+    "mobile_phone": "7654044158",
+    "email": "mu.qiao@gmail.com",
+    "name": "Mu Qiao",
+    "is_active": true,
+    "id": "1751870303542976",
+    "hashed_password": "$2b$12$tJE0kDCd2B7IquiJ5lPIYu6aqFPdVVmjuSbtaBZLI77wmtSmT0Bom",
+    "created_at": "2025-07-06 23:38:23.542814",
+    "updated_at": null
+  }
+]
