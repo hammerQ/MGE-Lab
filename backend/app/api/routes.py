@@ -5,7 +5,9 @@ from datetime import timedelta
 
 from app.core.config import settings
 from app.models.user import User, UserCreate, UserUpdate, PasswordReset
+from app.models.profile import UserProfile, UserProfileCreate, UserProfileUpdate
 from app.services.user_service import user_service
+from app.services.profile_service import profile_service
 from app.utils.security import create_access_token, decode_access_token
 
 # Create main API router
@@ -184,4 +186,48 @@ async def reset_password(reset_data: PasswordReset):
 async def check_user_exists(mobile_phone: str):
     """Check if user exists by mobile phone"""
     exists = user_service.user_exists(mobile_phone)
-    return {"exists": exists} 
+    return {"exists": exists}
+
+
+# Profile routes
+@api_router.post("/profile/", response_model=UserProfile)
+async def create_profile(profile: UserProfileCreate, current_user=Depends(get_current_user)):
+    """Create a new user profile"""
+    try:
+        db_profile = profile_service.create_profile(current_user.id, profile)
+        return db_profile
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+
+
+@api_router.get("/profile/me", response_model=UserProfile)
+async def get_my_profile(current_user=Depends(get_current_user)):
+    """Get current user's profile"""
+    profile = profile_service.get_profile_by_user_id(current_user.id)
+    if profile is None:
+        raise HTTPException(status_code=404, detail="Profile not found")
+    return profile
+
+
+@api_router.put("/profile/me", response_model=UserProfile)
+async def update_my_profile(
+    profile_update: UserProfileUpdate,
+    current_user=Depends(get_current_user)
+):
+    """Update current user's profile"""
+    profile = profile_service.update_profile(current_user.id, profile_update)
+    if profile is None:
+        raise HTTPException(status_code=404, detail="Profile not found")
+    return profile
+
+
+@api_router.delete("/profile/me")
+async def delete_my_profile(current_user=Depends(get_current_user)):
+    """Delete current user's profile"""
+    success = profile_service.delete_profile(current_user.id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Profile not found")
+    return {"message": "Profile deleted successfully"} 
