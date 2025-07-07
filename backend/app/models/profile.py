@@ -40,7 +40,7 @@ class ChildInfo(BaseModel):
     first_name: str = Field(..., min_length=1, max_length=50)
     middle_name: Optional[str] = Field(None, max_length=50)
     last_name: str = Field(..., min_length=1, max_length=50)
-    gender: str = Field(..., regex=r'^(male|female|other)$')
+    gender: str = Field(..., pattern=r'^(male|female|other)$')
     birth_year: int = Field(..., ge=2000, le=2024)
     birth_month: int = Field(..., ge=1, le=12)
     birth_day: int = Field(..., ge=1, le=31)
@@ -55,7 +55,7 @@ class ChildInfo(BaseModel):
 
 class PetInfo(BaseModel):
     name: str = Field(..., min_length=1, max_length=50)
-    pet_type: str = Field(..., regex=r'^(dog|cat)$')
+    pet_type: str = Field(..., pattern=r'^(dog|cat)$')
     breed: str = Field(..., min_length=1, max_length=50)
     color: str = Field(..., min_length=1, max_length=50)
 

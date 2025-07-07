@@ -1,0 +1,38 @@
+[
+  {
+    "father": {
+      "first_name": "Jing",
+      "middle_name": null,
+      "last_name": "Guo",
+      "birth_year": 1979,
+      "birth_month": 10,
+      "birth_day": 31
+    },
+    "mother": {
+      "first_name": "Rong",
+      "middle_name": null,
+      "last_name": "Huang",
+      "birth_year": 1989,
+      "birth_month": 3,
+      "birth_day": 12
+    },
+    "child": {
+      "first_name": "Puolu",
+      "middle_name": null,
+      "last_name": "Guo",
+      "gender": "male",
+      "birth_year": 2014,
+      "birth_month": 12,
+      "birth_day": 2
+    },
+    "pet": {
+      "name": "Salad",
+      "pet_type": "dog",
+      "breed": "Shiba Inu",
+      "color": "Brown"
+    },
+    "user_id": "1751870303542976",
+    "created_at": "2025-07-06 21:58:13.146274",
+    "updated_at": null
+  }
+]
