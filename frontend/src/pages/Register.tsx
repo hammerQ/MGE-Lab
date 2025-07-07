@@ -31,7 +31,7 @@ const Register: React.FC = () => {
     try {
       await registerUser(data.name, data.mobile_phone, data.email, data.password)
       toast.success('Registration successful!')
-      navigate('/dashboard')
+      navigate('/hub')
     } catch (error: any) {
       toast.error(error.response?.data?.detail || 'Registration failed')
     } finally {

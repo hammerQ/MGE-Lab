@@ -25,7 +25,7 @@ const Login: React.FC = () => {
     try {
       await login(data.mobile_phone, data.password)
       toast.success('Login successful!')
-      navigate('/dashboard')
+      navigate('/hub')
     } catch (error: any) {
       toast.error(error.response?.data?.detail || 'Login failed')
     } finally {

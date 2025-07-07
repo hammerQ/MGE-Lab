@@ -30,9 +30,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div className="flex items-center space-x-4">
               {user ? (
                 <>
-                  <span className="text-sm text-gray-600">
-                    Welcome, {user.name}
-                  </span>
                   <Link
                     to="/dashboard"
                     className={`px-3 py-2 rounded-md text-sm font-medium ${
@@ -59,6 +56,20 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   >
                     Logout
                   </button>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                      <span className="text-white text-sm font-medium">
+                        {user.name
+                          .split(' ')
+                          .map(name => name.charAt(0).toUpperCase())
+                          .slice(0, 2)
+                          .join('')}
+                      </span>
+                    </div>
+                    <span className="text-sm text-gray-600">
+                      {user.name}
+                    </span>
+                  </div>
                 </>
               ) : (
                 <>
