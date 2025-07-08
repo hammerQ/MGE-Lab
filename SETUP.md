@@ -3,35 +3,23 @@
 ## 🚀 Quick Start (Recommended)
 
 ### Prerequisites
-- Docker and Docker Compose installed
+- Python 3.10+ installed (tested with 3.9.12+)
+- Node.js 18+ installed
 - Git
 
-### 1. Clone and Start
-```bash
-git clone <repository-url>
-cd groweasy
+**Note**: Docker setup is available but manual setup is more reliable and easier to troubleshoot.
 
-# Start all services with Docker
-docker-compose up -d
-```
-
-### 2. Access the Application
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:8000
-- **API Documentation**: http://localhost:8000/docs
-
-## 🛠 Manual Development Setup
+## 🛠 Manual Development Setup (Recommended)
 
 ### Backend Setup (Python)
 ```bash
 cd backend
 
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+# Install core dependencies (handles version conflicts better than requirements.txt)
+pip install fastapi uvicorn python-multipart bcrypt passlib python-jose pydantic-settings email-validator
 
-# Install dependencies
-pip install -r requirements.txt
+# Alternative: Try full requirements (may have version conflicts)
+# pip install -r requirements.txt
 
 # Run the backend
 python run.py
@@ -50,6 +38,26 @@ npm run dev
 ```
 Frontend will be available at: http://localhost:3000
 
+## 🐳 Docker Setup (Alternative)
+
+### Prerequisites
+- Docker and Docker Compose installed
+- Git
+
+### 1. Clone and Start
+```bash
+git clone <repository-url>
+cd groweasy
+
+# Start all services with Docker
+docker-compose up -d
+```
+
+### 2. Access the Application
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:8000
+- **API Documentation**: http://localhost:8000/docs
+
 ## 📱 Features
 
 ### Authentication System
@@ -58,7 +66,7 @@ Frontend will be available at: http://localhost:3000
 - **Password Reset**: Simple reset using mobile phone number validation
 
 ### User Data Storage
-- Currently uses text file storage (`user_details.txt`)
+- Currently uses text file storage (`user_details.txt`, `user_profile.txt`)
 - Easily upgradeable to MongoDB later
 
 ### Password Requirements
@@ -97,44 +105,65 @@ Frontend will be available at: http://localhost:3000
 - `PUT /api/v1/users/{mobile_phone}` - Update user
 - `DELETE /api/v1/users/{mobile_phone}` - Delete user
 
+### Profile Management
+- `GET /api/v1/profile/me` - Get current user profile
+- `POST /api/v1/profile/` - Create user profile
+- `PUT /api/v1/profile/me` - Update user profile
+
 ## 🗂 File Structure
 ```
 groweasy/
 ├── backend/               # FastAPI backend
 │   ├── app/
 │   │   ├── api/          # API routes
-│   │   │   ├── core/         # Configuration
-│   │   │   ├── models/       # Data models
-│   │   │   ├── services/     # Business logic
-│   │   │   └── utils/        # Utilities
-│   │   ├── requirements.txt  # Dependencies
-│   │   └── user_details.txt  # User data storage
-│   ├── frontend/             # React frontend
-│   │   ├── src/
-│   │   │   ├── components/   # React components
-│   │   │   ├── pages/        # Page components
-│   │   │   ├── contexts/     # Auth context
-│   │   │   └── types/        # TypeScript types
-│   │   └── package.json      # Dependencies
-│   └── docker-compose.yml    # Docker configuration
+│   │   ├── core/         # Configuration
+│   │   ├── models/       # Data models
+│   │   ├── services/     # Business logic
+│   │   └── utils/        # Utilities
+│   ├── requirements.txt  # Dependencies
+│   ├── run.py           # Backend entry point
+│   ├── user_details.txt # User data storage
+│   └── user_profile.txt # Profile data storage
+├── frontend/             # React frontend
+│   ├── src/
+│   │   ├── components/   # React components
+│   │   ├── pages/        # Page components
+│   │   ├── contexts/     # Auth context
+│   │   ├── lib/         # API configuration
+│   │   └── types/        # TypeScript types
+│   └── package.json      # Dependencies
+└── docker-compose.yml    # Docker configuration
 ```
 
 ## 🔧 Troubleshooting
 
 ### Backend Issues
-- Ensure Python 3.11+ is installed
-- Check if port 8000 is available
-- Verify `user_details.txt` file is created in backend directory
+- **Python Version**: Ensure Python 3.10+ is installed (tested working with 3.9.12+)
+- **Port Conflict**: Check if port 8000 is available (`lsof -i :8000`)
+- **Dependencies**: If `pip install -r requirements.txt` fails due to version conflicts, use the core dependencies command instead
+- **Missing Modules**: If you get `ModuleNotFoundError`, install the specific missing packages:
+  ```bash
+  pip install pydantic-settings email-validator
+  ```
+- **File Storage**: Verify `user_details.txt` and `user_profile.txt` files are created in backend directory
 
 ### Frontend Issues
-- Ensure Node.js 18+ is installed
-- Check if port 3000 is available
-- Run `npm install` if dependencies are missing
+- **Node Version**: Ensure Node.js 18+ is installed
+- **Port Conflict**: Check if port 3000 is available (`lsof -i :3000`)
+- **Dependencies**: Run `npm install` if dependencies are missing
+- **API Connection**: Ensure backend is running on port 8000 before starting frontend
 
 ### Docker Issues
-- Ensure Docker is running
-- Check if ports 3000 and 8000 are available
-- Run `docker-compose logs -f` to see logs
+- **Docker Installation**: Ensure Docker and Docker Compose are installed and running
+- **Port Conflicts**: Check if ports 3000, 8000, and 27017 are available
+- **Logs**: Run `docker-compose logs -f` to see detailed logs
+- **Alternative**: Use manual setup if Docker issues persist
+
+### Common Solutions
+1. **Start Backend First**: Always start the backend before the frontend
+2. **Check Ports**: Ensure no other services are using ports 3000 and 8000
+3. **Manual Dependencies**: If automated dependency installation fails, install core packages manually
+4. **Background Process**: Run backend with `python run.py &` to keep it running in background
 
 ## 📞 Support
 For issues or questions, check the main README.md or create an issue in the repository. 
