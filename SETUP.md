@@ -3,7 +3,7 @@
 ## 🚀 Quick Start (Recommended)
 
 ### Prerequisites
-- Python 3.10+ installed (tested with 3.9.12+)
+- Python 3.10+ installed (currently using 3.10.4)
 - Node.js 18+ installed
 - Git
 
@@ -138,7 +138,7 @@ groweasy/
 ## 🔧 Troubleshooting
 
 ### Backend Issues
-- **Python Version**: Ensure Python 3.10+ is installed (tested working with 3.9.12+)
+- **Python Version**: Ensure Python 3.10+ is installed (currently using 3.10.4)
 - **Port Conflict**: Check if port 8000 is available (`lsof -i :8000`)
 - **Dependencies**: If `pip install -r requirements.txt` fails due to version conflicts, use the core dependencies command instead
 - **Missing Modules**: If you get `ModuleNotFoundError`, install the specific missing packages:
